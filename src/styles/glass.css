@@ -1,0 +1,111 @@
+/* ─── Blob Animations ─────────────────────────────────────────────────── */
+
+@keyframes blob1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(40px, -60px) scale(1.1); }
+  66%       { transform: translate(-30px, 30px) scale(0.95); }
+}
+@keyframes blob2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(-50px, 40px) scale(1.05); }
+  66%       { transform: translate(30px, -50px) scale(1.1); }
+}
+@keyframes blob3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(30px, 50px) scale(0.95); }
+  66%       { transform: translate(-40px, -30px) scale(1.08); }
+}
+@keyframes blob4 {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  25%       { transform: translate(-30px, -40px) scale(1.05) rotate(45deg); }
+  50%       { transform: translate(40px, 20px) scale(0.95) rotate(90deg); }
+  75%       { transform: translate(-20px, 40px) scale(1.1) rotate(135deg); }
+}
+
+/* ─── Glass Material Levels ──────────────────────────────────────────── */
+
+.glass {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(48px) saturate(180%);
+  -webkit-backdrop-filter: blur(48px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(72px) saturate(220%);
+  -webkit-backdrop-filter: blur(72px) saturate(220%);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 24px 80px rgba(0, 0, 0, 0.22);
+}
+
+.glass-login {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(60px) saturate(200%);
+  -webkit-backdrop-filter: blur(60px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.glass-chat {
+  background: #0a0e1c;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 32px 80px rgba(0, 0, 0, 0.7);
+}
+
+/* ─── Interactive States ─────────────────────────────────────────────── */
+
+.glass-hover:hover {
+  background: rgba(255, 255, 255, 0.10);
+}
+
+.glass-active {
+  background: rgba(255, 255, 255, 0.20) !important;
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* ─── Metallic Title Text ─────────────────────────────────────────────── */
+
+.text-metallic {
+  background: linear-gradient(
+    135deg,
+    #c8cdd2 0%,
+    #ffffff 28%,
+    #8d969e 50%,
+    #ffffff 72%,
+    #c0c5ca 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-bottom: 3px;
+}
+
+/* ─── CTA Button ─────────────────────────────────────────────────────── */
+
+.btn-cta {
+  background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 4px 16px rgba(139, 92, 246, 0.4);
+  transition: opacity 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-cta:hover {
+  opacity: 0.9;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 6px 24px rgba(139, 92, 246, 0.55);
+}
+
+/* ─── Calculator-specific ────────────────────────────────────────────── */
+
+.row-hover:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
