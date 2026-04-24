@@ -29,9 +29,8 @@ export default {
         input: '5px',
       },
       backdropBlur: {
-        glass: '48px',
-        'glass-card': '72px',
-        'glass-login': '60px',
+        glass:       '40px',
+        'glass-card': '48px',
       },
     },
   },

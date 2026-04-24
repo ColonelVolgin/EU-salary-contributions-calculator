@@ -80,7 +80,7 @@
   input[type=range] {
     -webkit-appearance: none;
     appearance: none;
-    height: 6px;
+    height: 5px;
     border-radius: 3px;
     outline: none;
     cursor: pointer;

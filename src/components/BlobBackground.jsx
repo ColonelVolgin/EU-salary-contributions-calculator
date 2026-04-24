@@ -29,7 +29,7 @@ export function BlobBackground() {
       />
       {/* Blob 3 — deep space, bottom-center, 21s */}
       <div
-        className="absolute rounded-full opacity-20"
+        className="absolute rounded-full opacity-22"
         style={{
           width: 700,
           height: 700,
@@ -42,7 +42,7 @@ export function BlobBackground() {
       />
       {/* Blob 4 — deep violet-navy, mid-center, 16s */}
       <div
-        className="absolute rounded-full opacity-20"
+        className="absolute rounded-full opacity-18"
         style={{
           width: 450,
           height: 450,
