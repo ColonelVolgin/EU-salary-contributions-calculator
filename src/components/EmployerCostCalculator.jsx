@@ -470,16 +470,16 @@ export default function EmployerCostCalculator() {
       </div>
       <p className="text-sm mt-3 mb-6 max-w-2xl text-white/50 leading-relaxed">
         What the employer pays on top of gross salary, and what the employee actually takes home after social contributions and income tax.
-        <span style={{ display: "block", marginTop: 4, fontSize: 13, color: C.inkFaint, fontStyle: "italic" }}>Click any row for a detailed breakdown.</span>
+        <span style={{ display: "block", marginTop: 4, fontSize: 13, color: "var(--text-secondary)" }}>Click any row for a detailed breakdown.</span>
       </p>
 
       {/* ── SLIDER ── */}
       <div className="glass-card rounded-card" style={{ padding: "18px 22px 16px", marginBottom: 20 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 10 }}>
-          <label style={{ fontFamily: "'Cinzel', Georgia, serif", fontSize: 9, fontWeight: 600, color: C.sepia, textTransform: "uppercase", letterSpacing: "2px" }}>
+          <label style={{ fontFamily: "var(--font-mono)", fontSize: 9, fontWeight: 600, color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: "0.16em" }}>
             Annual Gross Salary
           </label>
-          <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: 32, fontWeight: 400, color: C.parchment, letterSpacing: "-1px" }}>
+          <span style={{ fontFamily: "var(--font-mono)", fontSize: 28, fontWeight: 700, color: "var(--text-primary)", letterSpacing: "-1px" }}>
             {fmt(gross)}
           </span>
         </div>
@@ -492,7 +492,7 @@ export default function EmployerCostCalculator() {
             borderRadius: 3, outline: "none", cursor: "pointer",
           }}
         />
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: C.inkFaint, marginTop: 5, fontFamily: "'EB Garamond', Georgia, serif", fontStyle: "italic" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "var(--text-muted)", marginTop: 5, fontFamily: "var(--font-mono)" }}>
           <span>{"€"}15,000</span><span>{"€"}250,000</span>
         </div>
       </div>
@@ -647,121 +647,9 @@ export default function EmployerCostCalculator() {
                         </div>
                       </div>
                     </td>
-
-                    <td style={{ padding: "9px 10px", textAlign: "right", borderBottom: `1px solid ${C.oilWarm}`, ...mono,
-                      color: row.employerRate > 0.35 ? C.error : row.employerRate > 0.2 ? C.warn : C.success,
-                      fontWeight: 600,
-                    }}>
-                      {fmtPct(row.employerRate)}
-                    </td>
-
-                    <td style={{ padding: "9px 10px", textAlign: "right", borderBottom: `1px solid ${C.oilWarm}`, position: "relative", minWidth: 130 }}>
-                      <div style={{
-                        position: "absolute", left: 0, top: "50%", transform: "translateY(-50%)",
-                        height: 24, width: `${barW}%`,
-                        background: `linear-gradient(90deg, rgba(154,112,32,0.06), rgba(196,149,58,${0.06 + barW / 900}))`,
-                        borderRadius: 4, transition: "width 0.25s",
-                      }} />
-                      <span style={{ position: "relative", ...mono, fontWeight: 700, fontSize: 12.5, color: C.parchment }}>
-                        {fmt(row.totalCost)}
-                      </span>
-                      <div style={{ position: "relative", ...mono, fontSize: 9.5, color: C.error, fontWeight: 500 }}>
-                        +{fmt(row.employerTotal)}
-                      </div>
-                    </td>
-
-                    <td style={{ padding: "9px 10px", textAlign: "right", borderBottom: `1px solid ${C.oilWarm}`, borderLeft: `1px solid ${C.oilWarm}` }}>
-                      <span style={{ ...mono, fontSize: 12, color: C.error }}>
-                        {"−"}{fmt(row.totalDeductions)}
-                      </span>
-                      <div style={{ ...mono, fontSize: 9.5, color: C.inkFaint }}>
-                        {fmtPct(gross > 0 ? row.totalDeductions / gross : 0)}
-                      </div>
-                    </td>
-
-                    <td style={{ padding: "9px 10px", textAlign: "right", borderBottom: `1px solid ${C.oilWarm}`, borderLeft: "1px solid rgba(74,92,40,0.30)", background: isOpen ? "rgba(74,92,40,0.10)" : "rgba(74,92,40,0.05)" }}>
-                      <span style={{ ...mono, fontSize: 13, fontWeight: 700, color: netColor }}>
-                        {fmt(Math.max(row.takeHome, 0))}
-                      </span>
-                      <div style={{ ...mono, fontSize: 9.5, color: netColor, fontWeight: 500 }}>
-                        {fmtPct(netPct)}
-                      </div>
-                    </td>
-                  </tr>,
-
-                  isOpen && (
-                    <tr key={row.name + "-exp"}>
-                      <td colSpan={5} style={{ padding: 0, borderBottom: `1px solid ${C.oilWarm}` }}>
-                        <div style={{ background: "rgba(46,30,13,0.50)", padding: "14px 16px" }}>
-                          <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
-
-                            {/* Employer contributions */}
-                            <div style={{ flex: 1, minWidth: 240 }}>
-                              <div style={{ fontFamily: "'Cinzel', Georgia, serif", fontSize: 10, fontWeight: 600, color: C.gold, marginBottom: 8, textTransform: "uppercase", letterSpacing: "2px" }}>
-                                Employer Contributions
-                              </div>
-                              {row.employerBreakdown.map((b, j) => (
-                                <div key={j} style={{ display: "flex", justifyContent: "space-between", padding: "3px 0", borderBottom: `1px solid rgba(74,48,24,0.50)`, fontSize: 13 }}>
-                                  <span style={{ color: C.sepia }}>{b.name}</span>
-                                  <span style={{ ...mono, fontSize: 11.5, color: C.vellum, fontWeight: 500 }}>{fmt(b.amount)}</span>
-                                </div>
-                              ))}
-                              <div style={{ display: "flex", justifyContent: "space-between", padding: "6px 0 0", fontSize: 13, fontWeight: 700, borderTop: `2px solid rgba(196,149,58,0.25)`, marginTop: 4 }}>
-                                <span style={{ color: C.sepia }}>Total employer add-on</span>
-                                <span style={{ ...mono, color: C.error }}>+{fmt(row.employerTotal)}</span>
-                              </div>
-                              <div style={{ display: "flex", justifyContent: "space-between", padding: "4px 0 0", fontSize: 14, fontWeight: 700 }}>
-                                <span style={{ color: C.vellum }}>Total cost to employer</span>
-                                <span style={{ ...mono, color: C.parchment }}>{fmt(row.totalCost)}</span>
-                              </div>
-                            </div>
-
-                            {/* Employee deductions */}
-                            <div style={{ flex: 1, minWidth: 240 }}>
-                              <div style={{ fontFamily: "'Cinzel', Georgia, serif", fontSize: 10, fontWeight: 600, color: C.success, marginBottom: 8, textTransform: "uppercase", letterSpacing: "2px" }}>
-                                Employee Deductions
-                              </div>
-                              <div style={{ display: "flex", justifyContent: "space-between", padding: "3px 0", borderBottom: `1px solid rgba(74,48,24,0.50)`, fontSize: 13 }}>
-                                <span style={{ color: C.sepia }}>Social contributions</span>
-                                <span style={{ ...mono, fontSize: 11.5, color: C.vellum, fontWeight: 500 }}>{fmt(row.empSocial)}</span>
-                              </div>
-                              <div style={{ display: "flex", justifyContent: "space-between", padding: "3px 0", borderBottom: `1px solid rgba(74,48,24,0.50)`, fontSize: 13 }}>
-                                <span style={{ color: C.sepia }}>Income tax (est.)</span>
-                                <span style={{ ...mono, fontSize: 11.5, color: C.vellum, fontWeight: 500 }}>{fmt(row.incomeTax)}</span>
-                              </div>
-                              <div style={{ display: "flex", justifyContent: "space-between", padding: "6px 0 0", fontSize: 13, fontWeight: 700, borderTop: `2px solid rgba(196,74,48,0.25)`, marginTop: 4 }}>
-                                <span style={{ color: C.sepia }}>Total deducted</span>
-                                <span style={{ ...mono, color: C.error }}>{"−"}{fmt(row.totalDeductions)}</span>
-                              </div>
-                              <div style={{ display: "flex", justifyContent: "space-between", padding: "4px 0 0", fontSize: 14, fontWeight: 700 }}>
-                                <span style={{ color: C.success }}>Take-home pay</span>
-                                <span style={{ ...mono, color: C.success, fontSize: 15 }}>{fmt(Math.max(row.takeHome, 0))}</span>
-                              </div>
-                            </div>
-
-                            {/* Breakdown bar */}
-                            <div style={{ flex: 0.55, minWidth: 150, display: "flex", flexDirection: "column", justifyContent: "center", gap: 4 }}>
-                              <div style={{ fontFamily: "'Cinzel', Georgia, serif", fontSize: 9, color: C.inkFaint, textAlign: "center", marginBottom: 6, letterSpacing: "1px", textTransform: "uppercase" }}>
-                                Gross Salary Breakdown
-                              </div>
-                              <div style={{ height: 20, borderRadius: 10, overflow: "hidden", display: "flex", background: "rgba(74,48,24,0.50)" }}>
-                                <div style={{ width: `${netPct * 100}%`, background: `linear-gradient(90deg, ${C.success}, #8ab048)`, transition: "width 0.3s" }} />
-                                <div style={{ width: `${(row.empSocial / gross) * 100}%`, background: C.umber, transition: "width 0.3s" }} />
-                                <div style={{ width: `${(Math.max(row.incomeTax, 0) / gross) * 100}%`, background: C.error, transition: "width 0.3s" }} />
-                              </div>
-                              <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", marginTop: 4, fontFamily: "'EB Garamond', Georgia, serif" }}>
-                                <span style={{ fontSize: 11, color: C.success }}>{"●"} Net {fmtPct(netPct)}</span>
-                                <span style={{ fontSize: 11, color: C.umber }}>{"●"} Social {fmtPct(row.empSocial / gross)}</span>
-                                <span style={{ fontSize: 11, color: C.error }}>{"●"} Tax {fmtPct(Math.max(row.incomeTax, 0) / gross)}</span>
-                              </div>
-                            </div>
-
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  ),
-                ];
+                  </tr>
+                ),
+              ];
               })}
             </tbody>
           </table>
