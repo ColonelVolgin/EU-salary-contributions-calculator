@@ -22,90 +22,88 @@
   75%       { transform: translate(-20px, 40px) scale(1.1) rotate(135deg); }
 }
 
+/* ─── FP Cursor ──────────────────────────────────────────────────────── */
+
+@keyframes fp-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.fp-cursor {
+  color: var(--accent);
+  animation: fp-blink 1.1s step-end infinite;
+}
+
 /* ─── Glass Material Levels ──────────────────────────────────────────── */
 
 .glass {
-  background: rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(48px) saturate(180%);
-  -webkit-backdrop-filter: blur(48px) saturate(180%);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(48px) saturate(160%);
+  -webkit-backdrop-filter: blur(48px) saturate(160%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 1px 0 var(--border-bright),
     0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(72px) saturate(220%);
-  -webkit-backdrop-filter: blur(72px) saturate(220%);
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(72px) saturate(180%);
+  -webkit-backdrop-filter: blur(72px) saturate(180%);
+  border: 1px solid var(--border-bright);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.15),
-    0 24px 80px rgba(0, 0, 0, 0.22);
+    inset 0 1px 0 var(--border),
+    0 24px 80px rgba(0, 0, 0, 0.3);
 }
 
 .glass-login {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(60px) saturate(200%);
-  -webkit-backdrop-filter: blur(60px) saturate(200%);
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(60px) saturate(180%);
+  -webkit-backdrop-filter: blur(60px) saturate(180%);
+  border: 1px solid var(--border-bright);
 }
 
 .glass-chat {
-  background: #0a0e1c;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--bg-1);
+  border: 1px solid var(--border-bright);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 var(--border),
     0 32px 80px rgba(0, 0, 0, 0.7);
 }
 
 /* ─── Interactive States ─────────────────────────────────────────────── */
 
 .glass-hover:hover {
-  background: rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.07);
 }
 
 .glass-active {
-  background: rgba(255, 255, 255, 0.20) !important;
-  border: 1px solid rgba(255, 255, 255, 0.30);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  background: var(--accent-dim) !important;
+  border: 1px solid var(--accent-border);
+  box-shadow: inset 0 1px 0 var(--border-bright);
 }
 
-/* ─── Metallic Title Text ─────────────────────────────────────────────── */
+/* ─── FP Heading Text ─────────────────────────────────────────────────── */
 
 .text-metallic {
-  background: linear-gradient(
-    135deg,
-    #c8cdd2 0%,
-    #ffffff 28%,
-    #8d969e 50%,
-    #ffffff 72%,
-    #c0c5ca 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  padding-bottom: 3px;
+  color: var(--text-primary);
 }
 
 /* ─── CTA Button ─────────────────────────────────────────────────────── */
 
 .btn-cta {
-  background: linear-gradient(135deg, #8b5cf6, #3b82f6);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.25),
-    0 4px 16px rgba(139, 92, 246, 0.4);
-  transition: opacity 0.15s ease, box-shadow 0.15s ease;
+  background: var(--accent);
+  color: var(--bg-0);
+  box-shadow: var(--glow);
+  transition: filter 0.15s, box-shadow 0.15s, transform 0.15s;
 }
 
 .btn-cta:hover {
-  opacity: 0.9;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.25),
-    0 6px 24px rgba(139, 92, 246, 0.55);
+  filter: brightness(1.1);
+  box-shadow: var(--glow);
+  transform: translateY(-1px);
 }
 
 /* ─── Calculator-specific ────────────────────────────────────────────── */
 
 .row-hover:hover {
-  background: rgba(255, 255, 255, 0.06) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
 }

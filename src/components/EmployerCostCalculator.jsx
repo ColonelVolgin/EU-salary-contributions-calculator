@@ -431,18 +431,26 @@ export default function EmployerCostCalculator() {
   const thStyle = (key) => ({
     padding: "11px 10px", textAlign: key === "name" ? "left" : "right",
     fontWeight: 600, fontSize: 10.5, letterSpacing: "0.3px", whiteSpace: "nowrap",
-    color: sortKey === key ? "rgba(255,255,255,0.90)" : "rgba(255,255,255,0.50)",
+    color: sortKey === key ? "var(--text-primary)" : "var(--text-secondary)",
     cursor: "pointer", userSelect: "none",
-    borderBottom: "1px solid rgba(255,255,255,0.10)",
+    borderBottom: "1px solid var(--border)",
   });
 
   const mono = { fontFamily: "'JetBrains Mono', monospace", fontSize: 12 };
 
   return (
     <div className="font-body leading-relaxed">
-      <h1 className="text-metallic text-2xl tracking-tight" style={{ margin: 0, letterSpacing: "-0.5px" }}>
-        Employment Cost & Take-Home Pay — Europe
-      </h1>
+      <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 0 }}>
+        <span aria-label="FP" style={{ fontFamily: "var(--font-mono)", fontWeight: 700, fontSize: 22, letterSpacing: "-1px", flexShrink: 0, userSelect: "none", lineHeight: 1 }}>
+          <span style={{ color: "var(--accent)" }}>[</span>
+          <span style={{ color: "var(--text-primary)" }}>FP</span>
+          <span style={{ color: "var(--accent)" }}>]</span>
+          <span className="fp-cursor">_</span>
+        </span>
+        <h1 className="text-metallic" style={{ margin: 0, letterSpacing: "-0.04em", fontSize: "1.5rem", fontWeight: 700 }}>
+          Employment Cost & Take-Home Pay — Europe
+        </h1>
+      </div>
       <p className="text-sm mt-3 mb-6 max-w-2xl text-white/50 leading-relaxed">
         What the employer pays on top of gross salary, and what the employee actually takes home after social contributions and income tax.
         <span className="block mt-1 text-xs text-white/30">Click any row for a detailed breakdown.</span>
@@ -460,7 +468,7 @@ export default function EmployerCostCalculator() {
           onChange={(e) => setGross(Number(e.target.value))}
           style={{
             width: "100%", height: 6,
-            background: `linear-gradient(to right, #8b5cf6 ${((gross - 15000) / 235000) * 100}%, rgba(255,255,255,0.12) ${((gross - 15000) / 235000) * 100}%)`,
+            background: `linear-gradient(to right, var(--accent) ${((gross - 15000) / 235000) * 100}%, rgba(160,170,210,0.12) ${((gross - 15000) / 235000) * 100}%)`,
             borderRadius: 3, outline: "none", cursor: "pointer",
           }} />
         <div className="flex justify-between text-[10px] text-white/30 mt-1">
@@ -473,14 +481,14 @@ export default function EmployerCostCalculator() {
         <div style={{ overflowX: "auto" }}>
         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, minWidth: 720 }}>
           <thead>
-            <tr style={{ background: "rgba(255,255,255,0.05)" }}>
+            <tr style={{ background: "var(--bg-2)" }}>
               <th onClick={() => toggleSort("name")} style={thStyle("name")}>Country{arrow("name")}</th>
               <th onClick={() => toggleSort("employerRate")} style={thStyle("employerRate")}>Employer %{arrow("employerRate")}</th>
               <th onClick={() => toggleSort("totalCost")} style={thStyle("totalCost")}>Total Employer Cost{arrow("totalCost")}</th>
-              <th onClick={() => toggleSort("totalDeductions")} style={{ ...thStyle("totalDeductions"), borderLeft: "1px solid rgba(255,255,255,0.08)" }}>
+              <th onClick={() => toggleSort("totalDeductions")} style={{ ...thStyle("totalDeductions"), borderLeft: "1px solid var(--border)" }}>
                 Employee Deductions{arrow("totalDeductions")}
               </th>
-              <th onClick={() => toggleSort("takeHome")} style={{ ...thStyle("takeHome"), background: "rgba(30,142,62,0.06)", borderLeft: "1px solid rgba(30,142,62,0.15)" }}>
+              <th onClick={() => toggleSort("takeHome")} style={{ ...thStyle("takeHome"), background: "oklch(0.72 0.10 160 / 0.06)", borderLeft: "1px solid oklch(0.72 0.10 160 / 0.20)" }}>
                 Take-Home Pay{arrow("takeHome")}
               </th>
             </tr>
@@ -490,16 +498,16 @@ export default function EmployerCostCalculator() {
               const isOpen = expanded === row.name;
               const barW = (row.totalCost / maxCost) * 100;
               const netPct = Math.max(row.takeHomeRate, 0);
-              const netColor = netPct >= 0.7 ? "#1E8E3E" : netPct >= 0.55 ? "#e67e22" : "#D93025";
+              const netColor = netPct >= 0.7 ? "var(--success)" : netPct >= 0.55 ? "var(--warning)" : "var(--error)";
               return [
                 <tr key={row.name} className="row-hover"
                   onClick={() => setExpanded(isOpen ? null : row.name)}
                   style={{
-                    background: isOpen ? "rgba(255,255,255,0.05)" : i % 2 === 0 ? "transparent" : "rgba(255,255,255,0.02)",
+                    background: isOpen ? "var(--bg-2)" : i % 2 === 0 ? "transparent" : "rgba(255,255,255,0.01)",
                     cursor: "pointer", transition: "background 0.1s",
                   }}
                 >
-                  <td style={{ padding: "9px 10px", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                  <td style={{ padding: "9px 10px", borderBottom: "1px solid var(--border)" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
                       <span style={{ fontSize: 17 }}>{row.flag}</span>
                       <div>
@@ -511,38 +519,38 @@ export default function EmployerCostCalculator() {
                     </div>
                   </td>
 
-                  <td style={{ padding: "9px 10px", textAlign: "right", borderBottom: "1px solid rgba(255,255,255,0.06)", ...mono,
-                    color: row.employerRate > 0.35 ? "#D93025" : row.employerRate > 0.2 ? "#e67e22" : "#1E8E3E",
+                  <td style={{ padding: "9px 10px", textAlign: "right", borderBottom: "1px solid var(--border)", ...mono,
+                    color: row.employerRate > 0.35 ? "var(--error)" : row.employerRate > 0.2 ? "var(--warning)" : "var(--success)",
                     fontWeight: 600,
                   }}>
                     {fmtPct(row.employerRate)}
                   </td>
 
-                  <td style={{ padding: "9px 10px", textAlign: "right", borderBottom: "1px solid rgba(255,255,255,0.06)", position: "relative", minWidth: 130 }}>
+                  <td style={{ padding: "9px 10px", textAlign: "right", borderBottom: "1px solid var(--border)", position: "relative", minWidth: 130 }}>
                     <div style={{
                       position: "absolute", left: 0, top: "50%", transform: "translateY(-50%)",
                       height: 24, width: `${barW}%`,
-                      background: `linear-gradient(90deg, rgba(139,92,246,0.05), rgba(139,92,246,${0.08 + barW / 900}))`,
+                      background: `linear-gradient(90deg, oklch(0.88 0.04 240 / 0.04), oklch(0.88 0.04 240 / ${(0.05 + barW / 900).toFixed(3)}))`,
                       borderRadius: 4, transition: "width 0.25s",
                     }} />
                     <span style={{ position: "relative", ...mono, fontWeight: 700, fontSize: 12.5, color: "rgba(255,255,255,0.95)" }}>
                       {fmt(row.totalCost)}
                     </span>
-                    <div style={{ position: "relative", ...mono, fontSize: 9.5, color: "#D93025", fontWeight: 500 }}>
+                    <div style={{ position: "relative", ...mono, fontSize: 9.5, color: "var(--error)", fontWeight: 500 }}>
                       +{fmt(row.employerTotal)}
                     </div>
                   </td>
 
-                  <td style={{ padding: "9px 10px", textAlign: "right", borderBottom: "1px solid rgba(255,255,255,0.06)", borderLeft: "1px solid rgba(255,255,255,0.08)" }}>
-                    <span style={{ ...mono, fontSize: 12, color: "#D93025" }}>
+                  <td style={{ padding: "9px 10px", textAlign: "right", borderBottom: "1px solid var(--border)", borderLeft: "1px solid var(--border)" }}>
+                    <span style={{ ...mono, fontSize: 12, color: "var(--error)" }}>
                       {"\u2212"}{fmt(row.totalDeductions)}
                     </span>
-                    <div style={{ ...mono, fontSize: 9.5, color: "rgba(255,255,255,0.40)" }}>
+                    <div style={{ ...mono, fontSize: 9.5, color: "var(--text-secondary)" }}>
                       {fmtPct(gross > 0 ? row.totalDeductions / gross : 0)}
                     </div>
                   </td>
 
-                  <td style={{ padding: "9px 10px", textAlign: "right", borderBottom: "1px solid rgba(255,255,255,0.06)", borderLeft: "1px solid rgba(30,142,62,0.15)", background: isOpen ? "rgba(30,142,62,0.06)" : "rgba(30,142,62,0.03)" }}>
+                  <td style={{ padding: "9px 10px", textAlign: "right", borderBottom: "1px solid var(--border)", borderLeft: "1px solid oklch(0.72 0.10 160 / 0.20)", background: isOpen ? "oklch(0.72 0.10 160 / 0.06)" : "oklch(0.72 0.10 160 / 0.03)" }}>
                     <span style={{ ...mono, fontSize: 13, fontWeight: 700, color: netColor }}>
                       {fmt(Math.max(row.takeHome, 0))}
                     </span>
@@ -554,60 +562,60 @@ export default function EmployerCostCalculator() {
 
                 isOpen && (
                   <tr key={row.name + "-exp"}>
-                    <td colSpan={5} style={{ padding: 0, borderBottom: "1px solid rgba(255,255,255,0.10)" }}>
-                      <div style={{ background: "rgba(255,255,255,0.03)", padding: "14px 16px" }}>
+                    <td colSpan={5} style={{ padding: 0, borderBottom: "1px solid var(--border-bright)" }}>
+                      <div style={{ background: "var(--bg-1)", padding: "14px 16px" }}>
                         <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
                           {/* Employer */}
                           <div style={{ flex: 1, minWidth: 240 }}>
-                            <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(139,92,246,0.9)", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                            <div style={{ fontSize: 11, fontWeight: 700, color: "var(--accent)", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.12em", fontFamily: "var(--font-mono)" }}>
                               Employer Contributions
                             </div>
                             {row.employerBreakdown.map((b, j) => (
-                              <div key={j} style={{ display: "flex", justifyContent: "space-between", padding: "3px 0", borderBottom: "1px solid rgba(255,255,255,0.06)", fontSize: 12 }}>
-                                <span style={{ color: "rgba(255,255,255,0.50)" }}>{b.name}</span>
-                                <span style={{ ...mono, fontSize: 11.5, color: "rgba(255,255,255,0.80)", fontWeight: 500 }}>{fmt(b.amount)}</span>
+                              <div key={j} style={{ display: "flex", justifyContent: "space-between", padding: "3px 0", borderBottom: "1px solid var(--border)", fontSize: 12 }}>
+                                <span style={{ color: "var(--text-secondary)" }}>{b.name}</span>
+                                <span style={{ ...mono, fontSize: 11.5, color: "var(--text-primary)", fontWeight: 500 }}>{fmt(b.amount)}</span>
                               </div>
                             ))}
-                            <div style={{ display: "flex", justifyContent: "space-between", padding: "6px 0 0", fontSize: 12, fontWeight: 700, borderTop: "2px solid rgba(139,92,246,0.25)", marginTop: 4 }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", padding: "6px 0 0", fontSize: 12, fontWeight: 700, borderTop: "2px solid var(--accent-border)", marginTop: 4 }}>
                               <span>Total employer add-on</span>
-                              <span style={{ ...mono, color: "#D93025" }}>+{fmt(row.employerTotal)}</span>
+                              <span style={{ ...mono, color: "var(--error)" }}>+{fmt(row.employerTotal)}</span>
                             </div>
                             <div style={{ display: "flex", justifyContent: "space-between", padding: "4px 0 0", fontSize: 13, fontWeight: 700 }}>
                               <span>Total cost to employer</span>
-                              <span style={{ ...mono, color: "rgba(255,255,255,0.95)" }}>{fmt(row.totalCost)}</span>
+                              <span style={{ ...mono, color: "var(--text-primary)" }}>{fmt(row.totalCost)}</span>
                             </div>
                           </div>
 
                           {/* Employee */}
                           <div style={{ flex: 1, minWidth: 240 }}>
-                            <div style={{ fontSize: 11, fontWeight: 700, color: "#1E8E3E", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                            <div style={{ fontSize: 11, fontWeight: 700, color: "var(--success)", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.12em", fontFamily: "var(--font-mono)" }}>
                               Employee Deductions
                             </div>
-                            <div style={{ display: "flex", justifyContent: "space-between", padding: "3px 0", borderBottom: "1px solid rgba(255,255,255,0.06)", fontSize: 12 }}>
-                              <span style={{ color: "rgba(255,255,255,0.50)" }}>Social contributions</span>
-                              <span style={{ ...mono, fontSize: 11.5, color: "rgba(255,255,255,0.80)", fontWeight: 500 }}>{fmt(row.empSocial)}</span>
+                            <div style={{ display: "flex", justifyContent: "space-between", padding: "3px 0", borderBottom: "1px solid var(--border)", fontSize: 12 }}>
+                              <span style={{ color: "var(--text-secondary)" }}>Social contributions</span>
+                              <span style={{ ...mono, fontSize: 11.5, color: "var(--text-primary)", fontWeight: 500 }}>{fmt(row.empSocial)}</span>
                             </div>
-                            <div style={{ display: "flex", justifyContent: "space-between", padding: "3px 0", borderBottom: "1px solid rgba(255,255,255,0.06)", fontSize: 12 }}>
-                              <span style={{ color: "rgba(255,255,255,0.50)" }}>Income tax (est.)</span>
-                              <span style={{ ...mono, fontSize: 11.5, color: "rgba(255,255,255,0.80)", fontWeight: 500 }}>{fmt(row.incomeTax)}</span>
+                            <div style={{ display: "flex", justifyContent: "space-between", padding: "3px 0", borderBottom: "1px solid var(--border)", fontSize: 12 }}>
+                              <span style={{ color: "var(--text-secondary)" }}>Income tax (est.)</span>
+                              <span style={{ ...mono, fontSize: 11.5, color: "var(--text-primary)", fontWeight: 500 }}>{fmt(row.incomeTax)}</span>
                             </div>
-                            <div style={{ display: "flex", justifyContent: "space-between", padding: "6px 0 0", fontSize: 12, fontWeight: 700, borderTop: "2px solid rgba(217,48,37,0.25)", marginTop: 4 }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", padding: "6px 0 0", fontSize: 12, fontWeight: 700, borderTop: "2px solid oklch(0.65 0.18 25 / 0.25)", marginTop: 4 }}>
                               <span>Total deducted</span>
-                              <span style={{ ...mono, color: "#D93025" }}>{"\u2212"}{fmt(row.totalDeductions)}</span>
+                              <span style={{ ...mono, color: "var(--error)" }}>{"\u2212"}{fmt(row.totalDeductions)}</span>
                             </div>
                             <div style={{ display: "flex", justifyContent: "space-between", padding: "4px 0 0", fontSize: 13, fontWeight: 700 }}>
-                              <span style={{ color: "#1E8E3E" }}>Take-home pay</span>
-                              <span style={{ ...mono, color: "#1E8E3E", fontSize: 14 }}>{fmt(Math.max(row.takeHome, 0))}</span>
+                              <span style={{ color: "var(--success)" }}>Take-home pay</span>
+                              <span style={{ ...mono, color: "var(--success)", fontSize: 14 }}>{fmt(Math.max(row.takeHome, 0))}</span>
                             </div>
                           </div>
 
                           {/* Bar */}
                           <div style={{ flex: 0.55, minWidth: 150, display: "flex", flexDirection: "column", justifyContent: "center", gap: 4 }}>
-                            <div style={{ fontSize: 10, color: "rgba(255,255,255,0.40)", textAlign: "center", marginBottom: 4 }}>Gross salary breakdown</div>
-                            <div style={{ height: 20, borderRadius: 10, overflow: "hidden", display: "flex", background: "rgba(255,255,255,0.08)" }}>
-                              <div style={{ width: `${netPct * 100}%`, background: "linear-gradient(90deg, #1E8E3E, #34d058)", transition: "width 0.3s" }} />
-                              <div style={{ width: `${(row.empSocial / gross) * 100}%`, background: "#e67e22", transition: "width 0.3s" }} />
-                              <div style={{ width: `${(Math.max(row.incomeTax, 0) / gross) * 100}%`, background: "#D93025", transition: "width 0.3s" }} />
+                            <div style={{ fontSize: 10, color: "var(--text-secondary)", textAlign: "center", marginBottom: 4, fontFamily: "var(--font-mono)", letterSpacing: "0.1em", textTransform: "uppercase" }}>Gross salary breakdown</div>
+                            <div style={{ height: 20, borderRadius: 10, overflow: "hidden", display: "flex", background: "var(--bg-3)" }}>
+                              <div style={{ width: `${netPct * 100}%`, background: "var(--success)", transition: "width 0.3s" }} />
+                              <div style={{ width: `${(row.empSocial / gross) * 100}%`, background: "var(--warning)", transition: "width 0.3s" }} />
+                              <div style={{ width: `${(Math.max(row.incomeTax, 0) / gross) * 100}%`, background: "var(--error)", transition: "width 0.3s" }} />
                             </div>
                             <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", marginTop: 2 }}>
                               <span style={{ fontSize: 9, color: "#1E8E3E" }}>{"\u25CF"} Net {fmtPct(netPct)}</span>
@@ -628,8 +636,8 @@ export default function EmployerCostCalculator() {
       </div>
 
       <div className="glass-card rounded-card mt-4" style={{ padding: "10px 14px", fontSize: 10, lineHeight: 1.7 }}>
-        <strong className="text-white/50">Disclaimer:</strong>{" "}
-        <span className="text-white/40">
+        <strong style={{ color: "var(--text-secondary)" }}>Disclaimer:</strong>{" "}
+        <span style={{ color: "var(--text-muted)" }}>
           Income tax uses simplified progressive brackets for a single filer with no dependents or special deductions. Actual take-home varies with filing status, local taxes, tax credits, collective agreements, and country-specific rules. Employee social contributions use standard rates with applicable ceilings. Non-EUR amounts converted at approximate rates (GBP 1 {"\u2248"} {"\u20AC"}1.18, CHF 1 {"\u2248"} {"\u20AC"}0.95). For comparison purposes only {"\u2014"} consult a local tax advisor for precise figures.
         </span>
       </div>

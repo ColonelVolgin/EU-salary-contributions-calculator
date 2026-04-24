@@ -8,22 +8,25 @@ export default {
     extend: {
       colors: {
         brand: {
-          primary: '#8D969E',
-          secondary: '#191C1F',
-          error: '#D93025',
-          success: '#1E8E3E',
-          bg: '#05080f',
+          primary: '#edf0fa',
+          secondary: '#6a6d7e',
+          muted: '#34374a',
+          error: 'oklch(0.65 0.18 25)',
+          success: 'oklch(0.72 0.10 160)',
+          warning: 'oklch(0.80 0.12 85)',
+          bg: '#090b10',
+          accent: 'oklch(0.88 0.04 240)',
         },
       },
       fontFamily: {
-        heading: ['Aeonik Pro', 'sans-serif'],
-        body: ['Inter', 'sans-serif'],
+        heading: ['Space Grotesk', 'sans-serif'],
+        body: ['Space Grotesk', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
       borderRadius: {
-        card: '24px',
-        btn: '12px',
-        input: '8px',
+        card: '8px',
+        btn: '5px',
+        input: '5px',
       },
       backdropBlur: {
         glass: '48px',
