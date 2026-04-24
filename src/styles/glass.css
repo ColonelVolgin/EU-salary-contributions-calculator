@@ -1,23 +1,3 @@
-/* ─── Renaissance Color Tokens ───────────────────────────────────────── */
-
-:root {
-  --parchment:     #f0e4c6;
-  --vellum:        #faf3e4;
-  --parchment-alt: #e8d8b0;
-  --oil-dark:      #190f07;
-  --oil-mid:       #2e1e0d;
-  --oil-warm:      #4a3018;
-  --ink:           #2c1a0a;
-  --sepia:         #7a5535;
-  --ink-faint:     #a07850;
-  --gold:          #c4953a;
-  --gold-light:    #e8c870;
-  --gold-dark:     #9a7020;
-  --umber:         #8b5e30;
-  --error:         #7a3010;
-  --success:       #4a5c28;
-}
-
 /* ─── Blob Animations ─────────────────────────────────────────────────── */
 
 @keyframes blob1 {
@@ -89,7 +69,7 @@
     0 32px 80px rgba(0, 0, 0, 0.7);
 }
 
-/* ─── Gold Foil Text ─────────────────────────────────────────────────── */
+/* ─── Interactive States ─────────────────────────────────────────────── */
 
 .glass-hover:hover {
   background: rgba(255, 255, 255, 0.07);
@@ -107,8 +87,7 @@
   color: var(--text-primary);
 }
 
-/* keep metallic alias for legacy references */
-.text-metallic { @extend .text-gold-foil; }
+/* ─── CTA Button ─────────────────────────────────────────────────────── */
 
 .btn-cta {
   background: var(--accent);
@@ -123,23 +102,7 @@
   transform: translateY(-1px);
 }
 
-/* ─── Gilded Rule ────────────────────────────────────────────────────── */
-
-.gilded-rule {
-  height: 1px;
-  border: none;
-  background: linear-gradient(
-    to right,
-    transparent,
-    var(--gold-dark) 20%,
-    var(--gold-light) 50%,
-    var(--gold-dark) 80%,
-    transparent
-  );
-  margin: 20px 0;
-}
-
-/* ─── Row Hover ─────────────────────────────────────────────────────── */
+/* ─── Calculator-specific ────────────────────────────────────────────── */
 
 .row-hover:hover {
   background: rgba(255, 255, 255, 0.04) !important;
